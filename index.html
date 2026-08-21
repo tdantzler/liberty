@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SOAR &mdash; SysSential</title>
+<title>Liberty &mdash; SysSential</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -138,9 +138,9 @@ button:disabled{background:var(--line);color:var(--mute);cursor:not-allowed}
 
   <!-- ================= ACT 1 ================= -->
   <div class="act on" id="act1">
-    <p class="kicker">SOAR &middot; Ten minutes</p>
-    <h1>You see your numbers.<br><em>We see between them.</em></h1>
-    <p class="sub">Five boxes. Answer them the way one of your customers would, then keep this page open.</p>
+    <p class="kicker">Liberty &middot; Ten minutes</p>
+    <h1>Watch this answer<br><em>you back</em> in six<br>seconds.</h1>
+    <p class="sub">Fill this in as yourself. Before you look up from your phone, something will read it and write you back — and no two answers in this room will match.</p>
 
     <form id="f" novalidate>
       <div class="row">
@@ -178,11 +178,14 @@ button:disabled{background:var(--line);color:var(--mute);cursor:not-allowed}
           <option>Never knowing where a lead came from</option>
         </select></div>
 
+      <div class="field"><label for="handoff">In your words &mdash; the one thing you'd hand off if you could</label>
+        <input id="handoff" autocomplete="off" placeholder="e.g. following up on every quote I send" required></div>
+
       <button type="submit" id="go">Send it</button>
       <div class="err" id="err" hidden></div>
     </form>
 
-    <p class="foot">One-time demo &middot; Nothing is sold from this list<br>SysSential &middot; Charleston, SC</p>
+    <p class="foot">Live demo &middot; Your answers stay with Trae, nobody else<br>SysSential &middot; Charleston, SC</p>
   </div>
 
   <!-- ================= ACT 2 ================= -->
@@ -228,7 +231,7 @@ button:disabled{background:var(--line);color:var(--mute);cursor:not-allowed}
         <span class="n" id="count">0</span>
       </div>
       <div id="feed"></div>
-      <p class="foot" style="margin-top:26px">Every card is somebody in this room, seconds ago.<br>Turn the handout over for how it's built.</p>
+      <p class="foot" style="margin-top:26px">Every card is somebody in this room, seconds ago.<br>Want yours pointed at your own work? Book thirty minutes &mdash; QR on the handout.</p>
     </div>
   </div>
 
@@ -258,7 +261,8 @@ $('f').addEventListener('submit', async e => {
     email: $('email').value.trim(),
     business: $('business').value.trim(),
     trade: $('trade').value,
-    pain: $('pain').value
+    pain: $('pain').value,
+    handoff: $('handoff').value.trim()
   };
 
   if (Object.values(p).some(v => !v)) {
