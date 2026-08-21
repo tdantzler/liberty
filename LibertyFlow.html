@@ -89,9 +89,17 @@ footer{display:flex;justify-content:space-between;align-items:baseline;font-fami
   font-size:1.2vh;letter-spacing:.16em;text-transform:uppercase;color:#3E5573;position:relative;z-index:2}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.nav{position:fixed;top:18px;right:18px;z-index:50;cursor:auto}
+.nav a{display:inline-flex;align-items:center;gap:8px;background:rgba(6,247,212,.12);
+  border:1px solid var(--cyan);color:var(--cyan);text-decoration:none;
+  font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  padding:11px 16px;border-radius:8px;font-weight:500;-webkit-tap-highlight-color:transparent;cursor:pointer}
+.nav a:active{background:rgba(6,247,212,.22)}
 </style>
 </head>
 <body>
+<div class="nav"><a href="https://tdantzler.github.io/liberty/LibertyQR.html">&larr; Back to scan code</a></div>
 
 <header>
   <span class="brand">SysSential</span>
