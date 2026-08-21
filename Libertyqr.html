@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Liberty — Scan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0B1528;--lift:#101E36;--cyan:#06F7D4;--text:#EAF2F5;--mute:#7E8FA6;--line:#1E3050}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Geist',sans-serif;background:#fff}
+.page{width:8.5in;height:11in;background:var(--ink);color:var(--text);padding:0.7in 0.7in;
+  display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;overflow:hidden}
+.page::before{content:'';position:absolute;width:16in;height:16in;border-radius:50%;
+  background:radial-gradient(circle, rgba(6,247,212,.14), transparent 60%);top:-8in;left:-3.75in;pointer-events:none}
+.page::after{content:'';position:absolute;width:14in;height:14in;border-radius:50%;
+  background:radial-gradient(circle, rgba(52,88,255,.12), transparent 60%);bottom:-8in;right:-4in;pointer-events:none}
+
+.brand{position:relative;z-index:1;font-size:22px;font-weight:600;letter-spacing:-.01em;margin-bottom:0.5in}
+.kicker{position:relative;z-index:1;font-family:'Geist Mono',monospace;font-size:14px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--cyan);margin-bottom:24px}
+h1{position:relative;z-index:1;font-size:52px;line-height:1.02;font-weight:600;letter-spacing:-.035em;margin-bottom:14px}
+h1 em{font-style:italic;font-weight:500;color:var(--cyan)}
+.sub{position:relative;z-index:1;font-size:19px;line-height:1.5;color:var(--mute);max-width:26ch;margin-bottom:0.5in}
+
+.qrframe{position:relative;z-index:1;background:#fff;padding:26px;border-radius:16px;line-height:0;
+  box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.qrframe img{display:block;width:4.3in;height:4.3in}
+
+.steps{position:relative;z-index:1;display:flex;gap:0;margin-top:0.55in;width:100%;max-width:6.4in}
+.st{flex:1;padding:0 14px;position:relative}
+.st + .st::before{content:'';position:absolute;left:0;top:8px;height:calc(100% - 8px);width:1px;background:var(--line)}
+.st .n{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--cyan);margin-bottom:9px}
+.st p{font-size:14px;line-height:1.4;color:var(--text)}
+
+.foot{position:relative;z-index:1;margin-top:auto;font-family:'Geist Mono',monospace;font-size:12px;
+  letter-spacing:.14em;text-transform:uppercase;color:#3E5573}
+.url{position:relative;z-index:1;font-family:'Geist Mono',monospace;font-size:15px;letter-spacing:.04em;
+  color:var(--cyan);margin-top:6px}
+@page{size:letter;margin:0}
+.nav{position:fixed;top:18px;right:18px;z-index:10;display:flex;gap:10px}
+.nav a{display:inline-flex;align-items:center;gap:8px;background:rgba(6,247,212,.12);
+  border:1px solid var(--cyan);color:var(--cyan);text-decoration:none;
+  font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  padding:11px 16px;border-radius:8px;font-weight:500;-webkit-tap-highlight-color:transparent}
+.nav a:active{background:rgba(6,247,212,.22)}
+@media print{.nav{display:none}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+<div class="nav">
+  <a href="https://tdantzler.github.io/liberty/LibertyFlow.html">Show the flow &rarr;</a>
+</div>
+<div class="page">
+  <div class="brand">SysSential</div>
+  <div class="kicker">Liberty &middot; live demo</div>
+
+  <h1>Point your camera.<br><em>Watch it answer<br>you back.</em></h1>
+  <p class="sub">Eleven seconds. Answer as yourself, then keep the page open.</p>
+
+  <div class="qrframe"><div id="qr"></div></div>
+
+  <div class="steps">
+    <div class="st"><div class="n">01</div><p>Scan the code</p></div>
+    <div class="st"><div class="n">02</div><p>Answer five quick things</p></div>
+    <div class="st"><div class="n">03</div><p>Watch your screen</p></div>
+  </div>
+
+  <div class="foot">SysSential &middot; Charleston SC</div>
+  <div class="url" id="url"></div>
+</div>
+<script>
+  const FORM_URL = "https://tdantzler.github.io/liberty/";
+  new QRCode(document.getElementById("qr"), {
+    text: FORM_URL, width: 460, height: 460,
+    colorDark: "#0B1528", colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+  document.getElementById("url").textContent = FORM_URL.replace(/^https?:\/\//,'');
+</script>
+</body>
+</html>
