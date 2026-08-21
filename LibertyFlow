@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SysSential — The Flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B1528; --lift:#101E36; --lift2:#16264180;
+  --cyan:#06F7D4; --text:#EAF2F5; --mute:#7E8FA6; --line:#1E3050;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  background:var(--ink);color:var(--text);
+  font-family:'Geist',system-ui,sans-serif;-webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;
+  padding:3.2vh 3.2vw;position:relative;cursor:none;
+}
+body::before,body::after{content:'';position:fixed;border-radius:50%;filter:blur(110px);pointer-events:none}
+body::before{width:38vw;height:38vw;top:-14vw;right:-10vw;background:rgba(6,247,212,.10)}
+body::after{width:44vw;height:44vw;bottom:-20vw;left:-14vw;background:rgba(52,88,255,.10)}
+
+/* ---------- header ---------- */
+header{display:flex;align-items:baseline;justify-content:space-between;position:relative;z-index:2}
+.brand{font-size:2.1vh;font-weight:600;letter-spacing:-.01em}
+.kicker{font-family:'Geist Mono',monospace;font-size:1.25vh;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan)}
+
+.stage{flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+
+h1{font-size:5.6vh;line-height:1.04;font-weight:600;letter-spacing:-.03em;margin-bottom:1.2vh}
+h1 em{font-style:italic;font-weight:500;color:var(--cyan)}
+.lede{font-size:2vh;color:var(--mute);line-height:1.5;margin-bottom:4.5vh;max-width:60ch}
+
+/* ---------- pipeline ---------- */
+.pipe{display:flex;align-items:stretch;gap:1.1vw;position:relative}
+.box{
+  flex:1;background:var(--lift2);border:1px solid var(--line);border-radius:1vh;
+  padding:2.2vh 1.5vw;display:flex;flex-direction:column;position:relative;
+  transition:border-color .35s ease, background .35s ease, transform .35s cubic-bezier(.2,.7,.3,1);
+  min-height:19vh;
+}
+.box .n{font-family:'Geist Mono',monospace;font-size:1.2vh;letter-spacing:.2em;color:var(--mute);margin-bottom:1.5vh;transition:color .35s}
+.box h3{font-size:2.5vh;font-weight:600;letter-spacing:-.02em;line-height:1.15;margin-bottom:1vh}
+.box p{font-size:1.55vh;line-height:1.45;color:var(--mute);transition:color .35s}
+.box .tagline{margin-top:auto;font-family:'Geist Mono',monospace;font-size:1.1vh;letter-spacing:.16em;text-transform:uppercase;color:#3E5573;transition:color .35s}
+
+.box.hot{background:rgba(6,247,212,.07);border-color:var(--cyan);transform:translateY(-1.1vh)}
+.box.hot .n{color:var(--cyan)}
+.box.hot p{color:var(--text)}
+.box.hot .tagline{color:var(--cyan)}
+.box.done{border-color:#1F4E5E}
+.box.done .n{color:#3E7F84}
+
+/* the brain box carries a permanent mark */
+.box.brain::after{
+  content:'';position:absolute;inset:0;border-radius:1vh;pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(6,247,212,.22);
+}
+
+/* travelling pulse along the top edge */
+.rail{position:absolute;left:0;right:0;top:-1.4vh;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
+.spark{
+  position:absolute;top:-3px;width:8vw;height:8px;border-radius:8px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  filter:blur(2px);left:-10vw;
+}
+.spark.run{animation:travel 5.4s cubic-bezier(.35,0,.25,1) forwards}
+@keyframes travel{to{left:104%}}
+
+/* ---------- readout ---------- */
+.readout{
+  margin-top:4vh;display:flex;align-items:flex-start;gap:2.5vw;
+  opacity:0;transition:opacity .6s ease;
+}
+.readout.on{opacity:1}
+.timer{flex:none;text-align:right}
+.timer .t{font-family:'Geist Mono',monospace;font-size:6.4vh;font-weight:500;letter-spacing:-.04em;color:var(--cyan);line-height:1;font-variant-numeric:tabular-nums}
+.timer .l{font-family:'Geist Mono',monospace;font-size:1.15vh;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-top:1.2vh;line-height:1.6}
+.quote{flex:1;border-left:2px solid var(--cyan);padding-left:2vw}
+.quote .k{font-family:'Geist Mono',monospace;font-size:1.15vh;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:1.4vh}
+.quote p{font-size:2.15vh;line-height:1.6;min-height:6.5vh}
+.quote .who{font-family:'Geist Mono',monospace;font-size:1.2vh;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-top:1.6vh}
+
+footer{display:flex;justify-content:space-between;align-items:baseline;font-family:'Geist Mono',monospace;
+  font-size:1.2vh;letter-spacing:.16em;text-transform:uppercase;color:#3E5573;position:relative;z-index:2}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="brand">SysSential</span>
+  <span class="kicker">Live n8n workflow &middot; one form &middot; six seconds</span>
+</header>
+
+<div class="stage">
+
+  <h1>Six nodes. Five are plumbing.<br><em>One of them thinks.</em></h1>
+  <p class="lede">The same shape works whether you sell roofs, policies or adjustments. What changes per business is a single box.</p>
+
+  <div class="pipe" id="pipe">
+    <div class="rail"><span class="spark" id="spark"></span></div>
+
+    <div class="box" data-i="0">
+      <div class="n">01</div><h3>Form submit</h3>
+      <p>Five fields on a phone. Nothing clever.</p>
+      <div class="tagline">Webhook</div>
+    </div>
+    <div class="box" data-i="1">
+      <div class="n">02</div><h3>Store it</h3>
+      <p>Stored and time-stamped the second it lands.</p>
+      <div class="tagline">Code</div>
+    </div>
+    <div class="box brain" data-i="2">
+      <div class="n">03</div><h3>Read &amp; reason</h3>
+      <p>Reads their own words and writes back something specific.</p>
+      <div class="tagline">HTTP &middot; Claude</div>
+    </div>
+    <div class="box" data-i="3">
+      <div class="n">04</div><h3>To their screen</h3>
+      <p>Straight back to the phone in their hand.</p>
+      <div class="tagline">Respond</div>
+    </div>
+    <div class="box" data-i="4">
+      <div class="n">05</div><h3>To their inbox</h3>
+      <p>Same answer, emailed, same moment.</p>
+      <div class="tagline">Email</div>
+    </div>
+    <div class="box" data-i="5">
+      <div class="n">06</div><h3>To the room</h3>
+      <p>Posted to every other phone here.</p>
+      <div class="tagline">Respond</div>
+    </div>
+  </div>
+
+  <div class="readout" id="readout">
+    <div class="timer"><div class="t" id="timer">0.0s</div><div class="l">Time the<br>customer waited</div></div>
+    <div class="quote">
+      <div class="k">Written for them, just now</div>
+      <p id="quote"></p>
+      <div class="who" id="who"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span>Only the thinking node changes per business.</span>
+  <span>SysSential &middot; Charleston SC</span>
+</footer>
+
+<script>
+const boxes = [...document.querySelectorAll('.box')];
+const spark = document.getElementById('spark');
+const readout = document.getElementById('readout');
+const $q = document.getElementById('quote');
+const $who = document.getElementById('who');
+const $t = document.getElementById('timer');
+
+// Real answers this system produced, verbatim.
+const SAMPLES = [
+  { who: 'Real estate · chasing people for a reply',
+    secs: 6.0,
+    text: "You're chasing two different groups and treating them the same. The buyers who ghost after three showings need a different cadence than the sellers who requested a valuation but won't pick up. Start with the valuation requests — those are hotter leads sitting in limbo." },
+  { who: 'Health and wellness · booking and rescheduling',
+    secs: 6.7,
+    text: "The booking part is people calling during adjustments when you can't pick up. The rescheduling part is patients who need to move Thursday at 3 but don't call until Wednesday night. Fix rescheduling first — that protects your schedule density." },
+  { who: 'Home services · quotes and estimates',
+    secs: 5.4,
+    text: "Two jobs wearing one name. Getting the number right is estimating. Getting it in front of them same-day is follow-through. The second one is losing you work you already won on price." }
+];
+
+let idx = 0, paused = false;
+
+function reset(){
+  boxes.forEach(b => b.classList.remove('hot','done'));
+  spark.classList.remove('run');
+  void spark.offsetWidth;           // restart the animation
+  readout.classList.remove('on');
+  $q.textContent = '';
+  $who.textContent = '';
+  $t.textContent = '0.0s';
+}
+
+function typeOut(el, text, done){
+  let i = 0;
+  (function tick(){
+    if (paused) return setTimeout(tick, 120);
+    if (i >= text.length) return done && done();
+    el.textContent += text.slice(i, i+2); i += 2;
+    setTimeout(tick, 16);
+  })();
+}
+
+function runCycle(){
+  reset();
+  const s = SAMPLES[idx % SAMPLES.length];
+  idx++;
+
+  spark.classList.add('run');
+
+  // light each box in turn; box 3 lingers because it is the one doing work
+  const holds = [700, 700, 1900, 700, 700, 700];
+  let t = 350;
+  boxes.forEach((b, i) => {
+    setTimeout(() => {
+      if (paused) return;
+      boxes.forEach(x => { if (x !== b && x.classList.contains('hot')){ x.classList.remove('hot'); x.classList.add('done'); }});
+      b.classList.add('hot');
+    }, t);
+    t += holds[i];
+  });
+
+  // count the seconds up while it works
+  setTimeout(() => {
+    let n = 0;
+    const iv = setInterval(() => {
+      if (paused) return;
+      n += 0.1;
+      if (n >= s.secs){ n = s.secs; clearInterval(iv); }
+      $t.textContent = n.toFixed(1) + 's';
+    }, 62);
+  }, 350);
+
+  // reveal the answer once the "think" box has had its moment
+  setTimeout(() => {
+    if (paused) return;
+    readout.classList.add('on');
+    $who.textContent = s.who;
+    typeOut($q, s.text);
+  }, 2100);
+
+  setTimeout(() => { boxes.forEach(b => { b.classList.remove('hot'); b.classList.add('done'); }); }, t + 200);
+  setTimeout(() => { if (!paused) runCycle(); }, t + 7200);
+}
+
+runCycle();
+
+addEventListener('keydown', e => {
+  if (e.code === 'Space'){ e.preventDefault(); paused = !paused; if (!paused) runCycle(); }
+  if (e.key === 'f' || e.key === 'F'){
+    document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+  }
+  if (e.key === 'r' || e.key === 'R'){ paused = false; idx = 0; runCycle(); }
+});
+</script>
+</body>
+</html>
